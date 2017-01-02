@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Ethan Frey</title>
+    <link>https://ethanfrey.github.io/post/index.xml</link>
+    <description>Recent content in Posts on Ethan Frey</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 16 Dec 2016 17:43:39 +0100</lastBuildDate>
+    <atom:link href="https://ethanfrey.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Securing the chain #1: PoW style</title>
+      <link>https://ethanfrey.github.io/post/securing-the-chain-1/</link>
+      <pubDate>Fri, 16 Dec 2016 17:43:39 +0100</pubDate>
+      
+      <guid>https://ethanfrey.github.io/post/securing-the-chain-1/</guid>
+      <description>
+
+&lt;p&gt;The biggest win of blockchain technology is security.  It is argued that the technology allows one to take many computer, a number possibly insecure or malicious, and weave them together into a secure system, harder to hack into than a bank. This is largely true, as you add more machines to the blockchain, you don&amp;rsquo;t scale capacity, but rather security.  However, before one relies on any blockchain for sizeable assets, it is important to take an in-depth look at what security guarantees it actually offers.&lt;/p&gt;
+
+&lt;p&gt;There are two main models for providing security for a blockchain.  &amp;ldquo;Proof of work&amp;rdquo; (PoW) is used my bitcoin and most altcoins.  It relies on requiring large amount of work (computing power) to create a chain, and thus provides a large computational barrier for anyone seeking for forge (or fork) the chain.  &amp;ldquo;Proof of stake&amp;rdquo; (PoS) is a newer class of algorithms, that seek to use various techniques to detect any cheating and punish the cheaters, thus providing a direct economic insentive to be honest. There are a number of different techniques for PoS and they are the topic of the next post, for now let&amp;rsquo;s look how PoW works.&lt;/p&gt;
+
+&lt;h2 id=&#34;computing-the-chain&#34;&gt;Computing the chain&lt;/h2&gt;
+
+&lt;p&gt;First, let us take a look at what a blockchain is.  The fundamental idea of a blockchain is that there are numerous &lt;em&gt;blocks&lt;/em&gt;, each one of which can contain multiple transactions, &lt;em&gt;chained&lt;/em&gt; together, such that one block links back to they entire history, and you cannot change one transaction without invalidating all transactions that came after it.&lt;/p&gt;
+
+&lt;p&gt;Each block then, consists of a reference to the id of the previous block, a set of transaction data, and a signature that it is correct.  These then are hashed to provide a unique id that can be referenced by the next block. In the PoW model, this signature is something that takes a high amount of compute power to generate, yet can be easily verified.  Usually, cryptographic hashes are used, due to their one-way compute function.&lt;/p&gt;
+
+&lt;p&gt;Here is a typical challenge: the sha-256 hash of the block plus the signature must have the first 8 bytes all 0 bits.  Unless the sha-256 algorithm has been broken, this would require brute forcing an average of 2^64 (around 16 million million million) hashes to find a signature that works.  This can then be verified by other nodes with one simple hash.  By adjusting the number of leading zeroes, one can easily scale up or down the computing power embedded in one block.&lt;/p&gt;
+
+&lt;p&gt;Many nodes may be working in cooperation or competition to provide the next node.  And the node that produces the correct proof receives a reward in the form of transaction fees, to encourage the functioning of the system.  If there are multiple valid chains, the &amp;ldquo;correct&amp;rdquo; one is selected by the client as the longest chain leading back to the genesis node, ie. the one with the most compute power invested.&lt;/p&gt;
+
+&lt;h2 id=&#34;double-spending-and-forking&#34;&gt;Double-spending and forking&lt;/h2&gt;
+
+&lt;p&gt;Now we understand how the chains are created and proven correct, but what is the threat model they are defending against?  The biggest concern is &amp;ldquo;double spending&amp;rdquo;, which can only occur when a malicious node manages to fork the chain. But what is forking and how can we prevent it?&lt;/p&gt;
+
+&lt;p&gt;Imagine that the currently accepted state of the blockchain is block A.  You send me 1000 BTC and that transaction is writen to block B, a direct child of A.  I see block B created, and now am happy that you have paid me, and then give you whatever goods in exchange?  Not so fast&amp;hellip;.&lt;/p&gt;
+
+&lt;p&gt;In secret you have rented a large amount of computing power for an hour and produced blocks B&amp;rsquo; and C&amp;rsquo; (A -&amp;gt; B&amp;rsquo; -&amp;gt; C&amp;rsquo;), in which B&amp;rsquo; shows you sending those same 1000 BTC to a friend of yours.  If I tried to place the original transaction on the blockchain after C&amp;rsquo;, all nodes would consider the transaction invalid, because you are no longer the owner of those coins, and cannot transfer them.  Also, since the chain A-B&amp;rsquo;-C&amp;rsquo; is longer than the chain A-B, all correct clients will assume it is correct and continue building on it.  Everything works well, except I just got tricked out of 1000 BTC.&lt;/p&gt;
+
+&lt;p&gt;The standard solution is to wait a few more blocks.  But how does that make it more secure?  Imagine I know see the chain A-B-C-D-E-F-G, where B contains your payment to me.  I know see 5 blocks after it, and feel more secure.  The attacker would have to create an even longer chain (A-B&amp;rsquo;-C&amp;rsquo;-D&amp;rsquo;-E&amp;rsquo;-F&amp;rsquo;-G&amp;rsquo;-H&amp;rsquo;) to double-spend, raising the cost from generating 2 blocks to generating 7 blocks.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-costs-of-cheating&#34;&gt;The costs of cheating&lt;/h2&gt;
+
+&lt;p&gt;Okay, more blocks is more secure, but how secure is it?  It actually depends on the transaction volume of the blockchain, which is why Bitcoin is more secure than every other crypto-currency, it costs more to cheat there. Let us assume that the average block contains 100K USD of transactions, and we have a transaction fee around 1%.  This would mean that the correct miner would receive 1K USD for that block.  Thus, the economic incentive is such that miners will invest maybe 900 USD per block in order to turn a profit.  If you would want to overturn 7 blocks, you would need to quickly rent hardware in order to perform 6300 USD of computation. That looks like enough security for that 1BTC transaction, but maybe not enough for very large transactions.&lt;/p&gt;
+
+&lt;p&gt;You may well argue that this &amp;ldquo;compute cost&amp;rdquo; is the amortized cost of lost of hardware, plus the electricity to run it, and cannot be rented very well.  It is true that the professional miners produce much more hashes per dollar than someone renting compute power from AWS, so maybe we could say the security is 10 or 20 times more for some arbitrary attacker.  Then again, that attacker may have just bribed a large miner consortium to provide the power at a price much closer to 7K USD than 70K USD.&lt;/p&gt;
+
+&lt;p&gt;The quick takeaway is that if someone wants to double-spend a transaction, they would have to pay a cost of at minimum the total of transaction fees collected since the block in which your transaction was commited.  Add a little random noise to that (since brute force is a probabilistic approach), and you may consider a transaction secure when the benefit of over-turning that transaction is less than say 70% of the transaction fees collected since that transaction.  This implies a large waiting time to validate any large transaction, and it shows why Bitcoin is such the stable coin, as it is has far more volume, and is thus far more secure, than any alt-coin.&lt;/p&gt;
+
+&lt;h2 id=&#34;alternatives&#34;&gt;Alternatives&lt;/h2&gt;
+
+&lt;p&gt;Proof of Work seems well suited for a large network with very high daily turnover.  Every transaction is protected by the large volume of other transactions.  However, for networks with lower turnover, especially private chains, the cost of providing proof of work to provide a good level of security would be too high to justify.&lt;/p&gt;
+
+&lt;p&gt;This is why the majority of the currently discussed blockchains are public (to combine security), and also the inspiration of a &amp;ldquo;Proof of Stake&amp;rdquo; model of validation, which I will discuss in my next article.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

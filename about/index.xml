@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Abouts on Ethan Frey</title>
+    <link>https://ethanfrey.github.io/about/index.xml</link>
+    <description>Recent content in Abouts on Ethan Frey</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 02 Jan 2017 14:36:28 +0100</lastBuildDate>
+    <atom:link href="https://ethanfrey.github.io/about/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>About Me</title>
+      <link>https://ethanfrey.github.io/about/</link>
+      <pubDate>Mon, 02 Jan 2017 14:36:28 +0100</pubDate>
+      
+      <guid>https://ethanfrey.github.io/about/</guid>
+      <description>&lt;p&gt;Coming from many years of experience building websites and APIs (with a focus on the backend), I was introduced to the post-bitcoin blockchain world in 2014 through &lt;a href=&#34;https://www.ethereum.org/&#34;&gt;ethereum&lt;/a&gt; and &lt;a href=&#34;https://monax.io/&#34;&gt;the company formerly known as eris&lt;/a&gt;.  I finally saw the potential of blockchain technology go beyond crypto-gold to provide a fully distributed security mechanism to any general purpose, deterministic state machine.&lt;/p&gt;
+
+&lt;p&gt;Since then, I have searched for a way to bring all the tooling I enjoy from developing with web technologies (powerful data models, extensible APIs, quick UI dev, good test frameworks) into a blockchain application. And in this search I discovered &lt;a href=&#34;https://tendermint.com&#34;&gt;tendermint&lt;/a&gt;.  It seemed to me a great design to make a split between the consensus logic and the application state, providing both flexibility of app development and security of the underlying consensus mechanism.&lt;/p&gt;
+
+&lt;p&gt;I am now starting to work with the tendermint team and also look forward to producing and open-sourcing a number of apps based on this technology to demonstrate the power of blockchain tech in numerous fields - anywhere where security and auditability are requirements.&lt;/p&gt;
+
+&lt;p&gt;I see the potential of these next-gen blockchain applications to democratize the concept of trust away from only enormous institutions (like banks and the government) to any sufficiently large group made of of &amp;ldquo;mostly trustable&amp;rdquo; people. My hope is eventually this could lead to a fundamental democratization of governance, finance, public records, and more.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

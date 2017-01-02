@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tutorials on Ethan Frey</title>
+    <link>https://ethanfrey.github.io/tutorial/index.xml</link>
+    <description>Recent content in Tutorials on Ethan Frey</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 20 Nov 2016 19:09:06 +0100</lastBuildDate>
+    <atom:link href="https://ethanfrey.github.io/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Signed Post</title>
+      <link>https://ethanfrey.github.io/tutorial/signedpost/</link>
+      <pubDate>Sun, 20 Nov 2016 19:09:06 +0100</pubDate>
+      
+      <guid>https://ethanfrey.github.io/tutorial/signedpost/</guid>
+      <description>&lt;p&gt;TODO: show how to set up the signed post app&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
